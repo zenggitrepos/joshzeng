@@ -9,7 +9,7 @@ Jupyter Notebooks have two different keyboard input modes:
  
  - Edit mode as indicated by a green cell border   
 
-### Keyboard shorts in *Command Mode*
+### Keyboard short cuts in *Command Mode*
  - shift + enter: run current cell and select below
  - ctrl + enter: run current cell
  - option + enter: run current cell and insert below
@@ -24,7 +24,7 @@ Jupyter Notebooks have two different keyboard input modes:
  - Y: change a cell to code mode
  - M: change a cell to markdown mode
  
-### Keyboard shorts in *Edit Mode*
+### Keyboard short cuts in *Edit Mode*
  - cmd + click for multi-cursor editing
  - option + scrolling click for column editing
  - cmd + / toggle comment lines
