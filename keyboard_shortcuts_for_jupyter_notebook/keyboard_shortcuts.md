@@ -12,7 +12,8 @@ Jupyter Notebooks have two different keyboard input modes:
 ### Keyboard short cuts in *Command Mode*
  - shift + enter: run current cell and select below
  - ctrl + enter: run current cell
- - option + enter: run current cell and insert below
+ - option/alt + enter: run current cell and insert below
+ - ESC -> 00 -> Ctrl + A -> Shift +A: Restart the kernel and re-run all cells
  - A: insert a cell above
  - B: insert a cell below
  - C: copy a cell
