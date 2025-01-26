@@ -1,0 +1,141 @@
+---
+title: "Predicting horsepower based on your MPG"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+<style>
+.shiny-notification{
+  position: fixed;
+  top: 70%;
+  left: 2%;
+  right: 98%;
+  width: 13em;
+  font-weight: bold;
+}
+</style>
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+```
+
+
+Column {.sidebar data-width=250}
+-----------------------------------------------------------------------
+
+```{r}
+sliderInput("bins", "Number of bins:", min = 1, max = 35, value = 13, step = 1)
+sliderInput("MPG", "Select your MPG", min = 10,  max = 35, value = 23, step = 1)
+checkboxInput("showmeanstd", 'Would you like to show the mean value?', value = TRUE)
+checkboxInput("showmodel", 'Would you like to show the predicted model?', value = TRUE)
+
+actionButton("Start", "Start the prediction", icon("paper-plane"), 
+    style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
+  
+
+
+```
+
+```{r}
+outputs <- eventReactive(input$Start, {
+  
+   df <- mtcars %>% filter(mpg >= input$MPG)
+   
+   mpg_v    <- mtcars$mpg
+   
+   bins <- seq(min(mpg_v), max(mpg_v), length.out = input$bins + 1)
+   
+   if (input$showmeanstd){
+     mpg_hist <- ggplotly(ggplot(data = mtcars, aes(x = mpg)) +
+       geom_histogram(bins = input$bins, colour = 'black', fill = 'royalblue') +
+       geom_vline(xintercept = mean(mpg_v), col = "red", lwd = 2) +
+       geom_vline(xintercept = c(mean(mpg_v) - sd(mpg_v), mean(mpg_v) + sd(mpg_v)),  col = "orange", lwd = 3, lty = 2) )
+     }else {
+    mpg_hist <- ggplotly(ggplot(data = mtcars, aes(x = mpg)) +
+       geom_histogram(bins = input$bins, fill = 'royalblue', colour = 'black') +
+       geom_vline(xintercept = mean(mpg_v), col = "red", lwd = 2) )
+    }
+    
+    mod_lm <- lm(hp~mpg, data = mtcars)
+    mod_lm_pred <- predict(mod_lm, newdata = data.frame(mpg = input$MPG))
+    
+    if (input$showmodel){
+      
+      lm_plot <- ggplotly(ggplot(data = mtcars, aes(x = mpg, y = hp)) +
+        geom_point() +
+        geom_abline(slope = mod_lm$coefficients[2], intercept = mod_lm$coefficients[1], color='red', lwd = 1) +
+        labs(x = "MPG", y = "Horsepower") +
+        geom_point(aes(x = input$MPG, y = mod_lm_pred), col = "blue", pch = 16, cex = 2))
+      
+      }else {
+              lm_plot <- ggplotly(ggplot(data = mtcars, aes(x = mpg, y = hp)) +
+        geom_point() +
+        labs(x = "MPG", y = "Horsepower") +
+        geom_point(aes(x = input$MPG, y = mod_lm_pred), col = "blue", pch = 16, cex = 2))
+        
+      } 
+
+    showNotification("Prediction finished", duration = NULL)
+    return(list(mpg_hist = mpg_hist, lm_plot = lm_plot, mod_lm_pred = mod_lm_pred, df = df))
+ 
+  })
+  
+```
+
+Column { .tabset}
+-----------------------------------------------------------------------
+
+### **Predicted Horsepower** 
+
+```{r}
+  renderText({
+    paste("The predicted horsepower of your selected MPG: ", round(outputs()$mod_lm_pred, 2))
+
+  })
+```
+
+### **Horsepower for >= selected MPG**
+```{r}
+
+DT::renderDataTable({
+
+    DT::datatable(outputs()$df, extensions = 'Buttons',
+                  options = list( buttons = c('copy', 'csv', 'excel', 'pdf'), 
+                                  # colReorder = TRUE,
+                                  # extensions = 'Responsive',
+                                  dom = 'Bfrtip', 
+                                  # lengthMenu = list(c(5, 15, -1), 
+                                  #                   c('5', '15', 'All')),
+                                  # ordering = T,
+                                  # autoWidth = TRUE,
+                                  scrollX = TRUE
+                                  ))
+  })
+
+
+```
+
+### **Histogram of MPG**
+
+```{r}
+ renderPlotly({
+    # render saved plot
+   outputs()$mpg_hist
+  })
+```
+
+### **Predicted model**
+
+```{r}
+renderPlotly({
+    # render second plot
+  outputs()$lm_plot
+  })
+```
+
