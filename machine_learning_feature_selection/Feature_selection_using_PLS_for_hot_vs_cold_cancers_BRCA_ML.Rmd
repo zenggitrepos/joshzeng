@@ -1,0 +1,294 @@
+---
+title: 'Machine learning - PLS classification of hot and cold cancers'
+author: 'Joshua Zeng'
+date: today
+bibliography: references.bib
+format:
+  html:
+    code-fold: true
+---
+
+# Two classes (e.g. cases vs. controls)
+
+In this exercise, we will analyze a data set from @patel2021.
+The data set is available at [this link](https://www.ebi.ac.uk/biostudies/files/S-BSST416/COVID19%20blood%20biomarker%20profile%20with%20phenotype.xlsx).
+It can be loaded into R and cleaned by the commands below.
+
+```{r}
+#| include: false
+
+set.seed(88)
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(arrow)
+  library(glue)
+  library(rio)
+})
+```
+
+
+```{r}
+data_dir = '/media/josh/wd/data/ucsc_xena_data'
+out_dir = '/media/josh/wd/data/tcga_data'
+```
+
+```{r}
+rna = pd.read_parquet(f'{data_dir}/tcga_RSEM_gene_tpm.parquet.gzip')
+```
+
+```{r}
+#| code-fold: false
+tmp_file <- tempfile(fileext = "xlsx")
+download.file("https://www.ebi.ac.uk/biostudies/files/S-BSST416/COVID19%20blood%20biomarker%20profile%20with%20phenotype.xlsx", tmp_file)
+olink_df <- readxl::read_xlsx(tmp_file, sheet = "Olink", range = "A6:V103")
+olink_df <- olink_df[-c(2, 3, 5)]   # removes `Pat Code` `Days since onset` and `Etnicity` columns
+# controls and mild cases only
+olink_df$Group <- factor(olink_df$Group, levels = c('0', '1'), labels = c('control', 'mild'))
+olink_df$Gender <- factor(olink_df$Gender)
+olink_df <- na.omit(olink_df)  # complete cases only, to simplify the analysis
+
+# `tibble` instead of `data.frame`, for more convenient check of the contents
+olink_df <- tibble::as_tibble(olink_df)
+print(olink_df)
+```
+
+Here, we will classify controls from the group with mild patients by analyzing the provided protein profiles along with genders and ages
+
+At first, randomly split your data into a training (80% of the data) and testing sets (20% of the data).
+
+```{r}
+n_sample <- nrow(olink_df)  # number of samples
+idx_rnd <- sample(n_sample)    # randomly sampled indices
+cutoff_0.8 <- floor(n_sample * 0.8)
+idx_train <- idx_rnd[1:cutoff_0.8]
+idx_test  <- idx_rnd[(cutoff_0.8 + 1):n_sample]
+
+df_train <- olink_df[idx_train, ]
+df_test  <- olink_df[idx_test, ]
+print(table(df_train$Group))
+print(table(df_test$Group))
+```
+
+## Lasso logistic regression
+
+1. Load the `glmnet` R package.
+
+```{r}
+#| code-fold: false
+library(glmnet)
+```
+
+2. Reformat the data frame to a matrix and a response variable using `model.matrix`. 
+In the matrix and the response variable, categorical variables are converted to dummy variables having numeric values.
+
+```{r}
+x_train <- model.matrix(Group ~ ., df_train)[, -1]   # no (Intercept)
+y_train <- ifelse(df_train$Group == 'mild', 1, 0)
+```
+
+3. Find the optimal $\lambda$ from cross-validation using `cv.glmnet`.
+
+```{r}
+cv.lasso <- cv.glmnet(
+  x = x_train, 
+  y = y_train, 
+  alpha = 1,               # lasso
+  family = 'binomial'      # logistic
+)
+optimal_lambda <- cv.lasso$lambda.min
+plot(cv.lasso)
+
+```
+
+4. Fit a lasso logistic model to the training data with the optimal $\lambda$.
+Find which variables got non-zero coefficients using `coef`.
+
+```{r}
+lasso_logit <- glmnet(
+  x = x_train, 
+  y = y_train, 
+  alpha = 1,               # lasso
+  family = 'binomial',     # logistic
+  lambda = optimal_lambda
+)
+colnames(x_train)[predict(lasso_logit, type = "nonzero")[, 1]]
+
+lasso_logit_coef <- coef(lasso_logit, optimal_lambda)
+lasso_logit_coef[lasso_logit_coef[, 1] != 0, ]
+```
+
+5. Draw the ROC curve for predicting the test set and compute the AUC. 
+There are several packages with functions for ROC curves and AUC computation, e.g. `pROC`, `ROCR` and `yardstick`. 
+Note, the solution uses `roc_curve` and `roc_auc_vec` in the `yardstick` package in the `tidymodels` framework.
+
+```{r}
+x_test <- model.matrix(Group ~ ., df_test)[, -1]   # no (Intercept)
+y_test <- ifelse(df_test$Group == 'mild', 1, 0)
+y_pred <- predict(lasso_logit, newx = x_test, type = "response")[, 1]
+y_test_df <- data.frame(truth = factor(y_test, levels = c(1, 0)), pred = y_pred)
+print(y_test_df)
+roc <- yardstick::roc_curve(y_test_df, truth, pred)
+print(roc)
+library(ggplot2)
+ggplot(roc) +
+  aes(x = 1 - specificity, y = sensitivity) +
+  geom_path() +
+  geom_abline(lty = 3) +
+  coord_equal()
+auc <- yardstick::roc_auc_vec(factor(y_test, levels = c(1, 0)), y_pred)
+cat("AUC =", auc)
+```
+
+Using `autoplot` for ROC curve,
+
+```{r}
+autoplot(roc)
+```
+
+
+## Random forest
+
+1. Load the `randomForest` R package.
+
+```{r}
+#| code-fold: false
+library(randomForest)
+```
+
+2. Fit a random forest model to the training data and find its error rate 
+
+```{r}
+rf <- randomForest(x = df_train[-1], y = df_train[[1]])
+print(rf)
+```
+
+3. Make the ROC curve for predicting the test set and compute the AUC. 
+There are several packages with functions for ROC curves and AUC computation, e.g. `pROC`, `ROCR` and `yardstick`. 
+Note, the solution uses `roc_curve` and `roc_auc_vec` in the `yardstick` package in the `tidymodels` framework.
+
+```{r}
+x_test <- df_test[, -1]
+y_pred <- predict(rf, newdata = x_test, type = "prob")
+y_test_df <- data.frame(truth = df_test[[1]], pred = y_pred)
+print(y_test_df)
+roc <- yardstick::roc_curve(y_test_df, truth, pred.control)
+print(roc)
+ggplot(roc) +
+  aes(x = 1 - specificity, y = sensitivity) +
+  geom_path() +
+  geom_abline(lty = 3) +
+  coord_equal()
+auc <- yardstick::roc_auc_vec(df_test[[1]], y_pred[, 1])
+cat("AUC =", auc)
+```
+
+Using `autoplot` for ROC curve,
+
+```{r}
+autoplot(roc)
+```
+
+
+# Multi-classes (e.g. class 1, 2 and 3)
+
+In this exercise, we will re-analyze a data set from `mixOmics` package.
+According to the authors: 
+“The Small Round Blue Cell Tumors (SRBCT) dataset from includes the expression levels of 2,308 genes measured on 63 samples. The samples are classified into four classes as follows: 8 Burkitt Lymphoma (BL), 23 Ewing Sarcoma (EWS), 12 neuroblastoma (NB), and 20 rhabdomyosarcoma (RMS).”
+
+The dataset can be downloaded from [this link](https://github.com/mixOmicsTeam/mixOmics/raw/master/data/srbct.rda) and loaded into R by the following commands.
+
+```{r}
+#| code-fold: false
+data(srbct, package = 'mixOmics')
+
+# When `mixOmics` package was not installed.
+tmp_file <- tempfile(fileext = "rda")
+download.file("https://github.com/mixOmicsTeam/mixOmics/raw/master/data/srbct.rda", tmp_file)
+load(tmp_file)    # loads `srbct`
+```
+
+After loading the data, we will have a variable called `srbct` which is a list containing the following:
+
+* `gene`: a data frame with 63 rows and 2308 columns. The expression levels of 2,308 genes in 63 subjects.
+* `class`: a class vector containing the class tumor of each individual (4 classes in total).
+* `gene.name`: a data frame with 2,308 rows and 2 columns containing further information on the gene
+
+We can combine `gene` and `class` into a single data frame using:
+
+```{r}
+#| code-fold: false
+srbct_df <- data.frame(class = srbct$class, srbct$gene)
+# optional, if you prefer `tibble` in `tidyverse` package set to `data.frame`
+library(tidyverse)
+srbct_df <- as_tibble(srbct_df)
+```
+
+We are going to use random forests to find variables that are important for discriminating the 4 classes.
+
+1. Load the `randomForest` R package.
+
+```{r}
+library(randomForest)
+```
+
+2. Randomly split your data into a training (80% of the data) and testing sets (20% of the data).
+
+```{r}
+n_sample <- nrow(srbct_df)  # number of samples
+idx_rnd <- sample(n_sample)    # randomly sampled indices
+cutoff_0.8 <- floor(n_sample * 0.8)
+idx_train <- idx_rnd[1:cutoff_0.8]
+idx_test <- idx_rnd[(cutoff_0.8 + 1):n_sample]
+
+df_train <- srbct_df[idx_train, ]
+df_test <- srbct_df[idx_test, ]
+```
+
+3. Tune a hyper-parameter (`mtry`) of random forest (only on training data) using `tuneRF` function in `randomForest` package.
+
+```{r}
+y_train <- df_train[[1]]
+x_train <- df_train[, -1]
+rf_tune_res <- tuneRF(x = x_train, y = y_train, mtryStart = 100, ntreeTry = 100)
+print(rf_tune_res)
+```
+
+4. Fit a random forest model to the training data and find its error rate (either out of bag error or cross validation. up to you!)
+
+```{r}
+rf <- randomForest(x = x_train, y = y_train, mtry = 200)
+print(rf)
+```
+
+5. What is the accuracy of predicting the test set?
+
+```{r}
+x_test <- df_test[, -1]
+y_pred <- predict(rf, newdata = x_test)
+yardstick::accuracy_vec(df_test[[1]], y_pred)
+```
+
+6. Find the top 10 most important genes for discriminating all the classes
+
+```{r}
+rf <- randomForest(x = x_train, y = y_train, mtry = 200, importance = TRUE)
+print(rf)
+imps_mda <- randomForest::importance(rf, type = 1)
+print(head(imps_mda))
+imps_mda <- imps_mda[, 1]
+imps_mda[order(imps_mda, decreasing = TRUE)][1:10]
+varImpPlot(rf)
+```
+
+7. What are the top 10 genes for predicting _EWS_ class
+
+```{r}
+imps_ews <- importance(rf, type = 1, class = "EWS")[, 1]
+imps_ews[order(imps_ews, decreasing = TRUE)][1:10]
+varImpPlot(rf, type = 1, class = "EWS")
+```
+
+
+
