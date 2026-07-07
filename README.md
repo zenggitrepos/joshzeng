@@ -1,3 +1,3 @@
-### About Me
+### Joshua Zeng, PhD | Computational Biology / Bioinformatics / Translational Data Science
 
 I specialize in applying bioinformatics, statistics, and machine learning to oncology, immunology, and translational drug discovery. My experience spans biomarker discovery, patient-selection strategy, mechanism-of-resistance analysis, single-cell and spatial genomics, antibody/BCR repertoire analysis, GWAS/EWAS, QTL analysis, Mendelian randomization, and reproducible workflow development. I enjoy building practical tools and visualizations that help scientists and cross-functional teams make data-driven decisions.
