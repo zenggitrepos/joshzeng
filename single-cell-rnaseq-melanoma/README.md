@@ -50,17 +50,6 @@ The goal is to show practical experience with tumor single-cell RNA-seq analysis
 - Melanoma subtype comparison
 - Exploratory biomarker and marker-gene analysis
 
-## Files
-
-- `melanoma-scrna-analysis.ipynb`  
-  Main melanoma single-cell RNA-seq analysis notebook.
-
-- `Zhang_melanoma.scRNA.R`  
-  R script version of the analysis workflow.
-
-- `Download_Tabula_Sapiens_Single-Cell_Dataset.R`  
-  Supporting script for downloading reference single-cell data.
-
 ## Relevance
 
 This project is relevant to computational biology, oncology bioinformatics, translational biomarker discovery, and tumor microenvironment analysis.
