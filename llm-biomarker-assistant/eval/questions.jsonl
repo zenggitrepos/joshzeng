@@ -1,0 +1,5 @@
+{"question_id":"Q001","question":"What is the biological rationale for combining TIGIT and PD-1 blockade in NSCLC?","expected_document_ids":["SYN-PUB-001","SYN-PUB-002"]}
+{"question_id":"Q002","question":"Which biomarkers could identify patients responsive to TIGIT plus PD-1 therapy?","expected_document_ids":["SYN-BIO-001","SYN-PUB-001","SYN-TRIAL-001"]}
+{"question_id":"Q003","question":"What contradictory evidence should be discussed for TIGIT combinations?","expected_document_ids":["SYN-TRIAL-002"]}
+{"question_id":"Q004","question":"What mechanisms might cause resistance to anti-TIGIT therapy?","expected_document_ids":["SYN-NEG-001","SYN-PUB-002"]}
+{"question_id":"Q005","question":"Why is TIGIT expression alone an incomplete biomarker?","expected_document_ids":["SYN-PUB-002","SYN-TRIAL-002"]}
