@@ -6,7 +6,6 @@ The application demonstrates how large language models can support translational
 
 The project uses OpenRouter’s hosted Free Models Router (`openrouter/free`). It does not require downloading a large language model or setting up OpenAI API billing. A free OpenRouter account and API key are required. Model availability, response speed, and request limits may vary depending on the free models available through OpenRouter.
 
-> **Important:** The bundled `example_evidence.jsonl` records are synthetic and are provided only for software testing and portfolio demonstration. This application is not intended for clinical decision-making.
 
 ## Key Features
 
