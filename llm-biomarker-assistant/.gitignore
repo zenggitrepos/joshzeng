@@ -1,0 +1,18 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Python environment and cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Local vector database
+.chroma/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
