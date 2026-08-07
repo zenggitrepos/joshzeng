@@ -1,5 +1,5 @@
 ---
-title: "Predicting horsepower based on your MPG"
+title: "Interactive Shiny Dashboard for Biomarker Expression Analysis"
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -15,6 +15,11 @@ runtime: shiny
   width: 13em;
   font-weight: bold;
 }
+
+.section.sidebar {
+  padding-top: 40px;
+}
+
 </style>
 
 ```{r setup, include=FALSE}
@@ -23,119 +28,248 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(DT)
+library(rio)
 ```
 
+```{r}
+
+biomarker_data <- import("data/biomarker_data.csv")
+
+```
 
 Column {.sidebar data-width=250}
 -----------------------------------------------------------------------
 
+
 ```{r}
-sliderInput("bins", "Number of bins:", min = 1, max = 35, value = 13, step = 1)
-sliderInput("MPG", "Select your MPG", min = 10,  max = 35, value = 23, step = 1)
-checkboxInput("showmeanstd", 'Would you like to show the mean value?', value = TRUE)
-checkboxInput("showmodel", 'Would you like to show the predicted model?', value = TRUE)
+sliderInput(
+  "bins", 
+  "Histogram bins:", 
+  min = 5, 
+  max = 40, 
+  value = 15, 
+  step = 1
+)
 
-actionButton("Start", "Start the prediction", icon("paper-plane"), 
-    style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
-  
+sliderInput(
+  "immune_score", 
+  "Select minimum immune signature score:", 
+  min = floor(min(biomarker_data$immune_signature_score)), 
+  max = ceiling(max(biomarker_data$immune_signature_score)), 
+  value = 8, 
+  step = 1
+)
 
+checkboxInput(
+  "showmeanstd", 
+  "Show mean and standard deviation?", 
+  value = TRUE
+)
 
+checkboxInput(
+  "showmodel", 
+  "Show predicted model?", 
+  value = TRUE
+)
+
+actionButton(
+  "Start", 
+  "Start analysis", 
+  icon("paper-plane"),
+  style = "color: #fff; background-color: #337ab7; border-color: #2e6da4"
+)
 ```
+
+
 
 ```{r}
 outputs <- eventReactive(input$Start, {
-  
-   df <- mtcars %>% filter(mpg >= input$MPG)
-   
-   mpg_v    <- mtcars$mpg
-   
-   bins <- seq(min(mpg_v), max(mpg_v), length.out = input$bins + 1)
-   
-   if (input$showmeanstd){
-     mpg_hist <- ggplotly(ggplot(data = mtcars, aes(x = mpg)) +
-       geom_histogram(bins = input$bins, colour = 'black', fill = 'royalblue') +
-       geom_vline(xintercept = mean(mpg_v), col = "red", lwd = 2) +
-       geom_vline(xintercept = c(mean(mpg_v) - sd(mpg_v), mean(mpg_v) + sd(mpg_v)),  col = "orange", lwd = 3, lty = 2) )
-     }else {
-    mpg_hist <- ggplotly(ggplot(data = mtcars, aes(x = mpg)) +
-       geom_histogram(bins = input$bins, fill = 'royalblue', colour = 'black') +
-       geom_vline(xintercept = mean(mpg_v), col = "red", lwd = 2) )
-    }
-    
-    mod_lm <- lm(hp~mpg, data = mtcars)
-    mod_lm_pred <- predict(mod_lm, newdata = data.frame(mpg = input$MPG))
-    
-    if (input$showmodel){
-      
-      lm_plot <- ggplotly(ggplot(data = mtcars, aes(x = mpg, y = hp)) +
-        geom_point() +
-        geom_abline(slope = mod_lm$coefficients[2], intercept = mod_lm$coefficients[1], color='red', lwd = 1) +
-        labs(x = "MPG", y = "Horsepower") +
-        geom_point(aes(x = input$MPG, y = mod_lm_pred), col = "blue", pch = 16, cex = 2))
-      
-      }else {
-              lm_plot <- ggplotly(ggplot(data = mtcars, aes(x = mpg, y = hp)) +
-        geom_point() +
-        labs(x = "MPG", y = "Horsepower") +
-        geom_point(aes(x = input$MPG, y = mod_lm_pred), col = "blue", pch = 16, cex = 2))
-        
-      } 
 
-    showNotification("Prediction finished", duration = NULL)
-    return(list(mpg_hist = mpg_hist, lm_plot = lm_plot, mod_lm_pred = mod_lm_pred, df = df))
- 
-  })
-  
+df <- biomarker_data %>% 
+  filter(immune_signature_score >= input$immune_score) %>%
+  select(
+    sample_id,
+    tumor_type,
+    response_status,
+    immune_signature_score,
+    tumor_mutation_burden,
+    PDCD1,
+    CD274,
+    IFNG,
+    CTLA4,
+    response_binary
+  )
+
+  immune_v <- biomarker_data$immune_signature_score
+
+  if (input$showmeanstd) {
+
+    immune_hist <- ggplotly(
+      ggplot(data = biomarker_data, aes(x = immune_signature_score)) +
+        geom_histogram(bins = input$bins, colour = "black", fill = "royalblue") +
+        geom_vline(xintercept = mean(immune_v), col = "red", linewidth = 1) +
+        geom_vline(
+          xintercept = c(mean(immune_v) - sd(immune_v), 
+                         mean(immune_v) + sd(immune_v)), 
+          col = "orange", linewidth = 1, linetype = 2
+        ) +
+        labs(
+          x = "Immune Signature Score",
+          y = "Number of Samples"
+        )
+    )
+
+  } else {
+
+    immune_hist <- ggplotly(
+      ggplot(data = biomarker_data, aes(x = immune_signature_score)) +
+        geom_histogram(bins = input$bins, fill = "royalblue", colour = "black") +
+        labs(
+          x = "Immune Signature Score",
+          y = "Number of Samples"
+        )
+    )
+  }
+
+ mod_glm <- glm(
+  response_binary ~ immune_signature_score + tumor_mutation_burden + PDCD1 + CD274 + IFNG + CTLA4,
+  data = biomarker_data,
+  family = binomial
+)
+
+new_sample <- data.frame(
+  immune_signature_score = input$immune_score,
+  tumor_mutation_burden = median(biomarker_data$tumor_mutation_burden),
+  PDCD1 = median(biomarker_data$PDCD1),
+  CD274 = median(biomarker_data$CD274),
+  IFNG = median(biomarker_data$IFNG),
+  CTLA4 = median(biomarker_data$CTLA4)
+)
+
+predicted_response_probability <- predict(
+  mod_glm,
+  newdata = new_sample,
+  type = "response"
+)
+
+ if (input$showmodel) {
+
+  response_plot <- ggplotly(
+    ggplot(
+      data = biomarker_data,
+      aes(
+        x = immune_signature_score,
+        y = response_binary,
+        color = response_status
+      )
+    ) +
+      geom_jitter(height = 0.05, width = 0, size = 2, alpha = 0.7) +
+      stat_smooth(
+        method = "glm",
+        method.args = list(family = "binomial"),
+        se = TRUE,
+        color = "red"
+      ) +
+      geom_point(
+        aes(
+          x = input$immune_score,
+          y = predicted_response_probability
+        ),
+        color = "blue",
+        size = 4
+      ) +
+      labs(
+        x = "Immune Signature Score",
+        y = "Predicted Probability of Treatment Response",
+        color = "Response Status"
+      )
+
+  )
+
+} else {
+
+  response_plot <- ggplotly(
+    ggplot(
+      data = biomarker_data,
+      aes(
+        x = immune_signature_score,
+        y = response_binary,
+        color = response_status
+      )
+    ) +
+      geom_jitter(height = 0.05, width = 0, size = 2, alpha = 0.7) +
+      geom_point(
+        aes(
+          x = input$immune_score,
+          y = predicted_response_probability
+        ),
+        color = "blue",
+        size = 4
+      ) +
+      labs(
+        x = "Immune Signature Score",
+        y = "Predicted Probability of Treatment Response",
+        color = "Response Status"
+      )
+  )
+}
+
+  showNotification("Analysis finished", duration = NULL)
+
+return(list(
+  immune_hist = immune_hist,
+  response_plot = response_plot,
+  predicted_response_probability = predicted_response_probability,
+  df = df
+))
+})
 ```
 
 Column { .tabset}
 -----------------------------------------------------------------------
 
-### **Predicted Horsepower** 
+### **Predicted Probability of Treatment Response**
 
 ```{r}
-  renderText({
-    paste("The predicted horsepower of your selected MPG: ", round(outputs()$mod_lm_pred, 2))
-
-  })
+renderText({
+  paste(
+    "The predicted probability of treatment response at the selected immune signature score is:",
+    paste0(round(outputs()$predicted_response_probability * 100, 1), "%")
+  )
+})
 ```
+### **Samples Above Selected Immune Signature Score**
 
-### **Horsepower for >= selected MPG**
 ```{r}
 
 DT::renderDataTable({
-
-    DT::datatable(outputs()$df, extensions = 'Buttons',
-                  options = list( buttons = c('copy', 'csv', 'excel', 'pdf'), 
-                                  # colReorder = TRUE,
-                                  # extensions = 'Responsive',
-                                  dom = 'Bfrtip', 
-                                  # lengthMenu = list(c(5, 15, -1), 
-                                  #                   c('5', '15', 'All')),
-                                  # ordering = T,
-                                  # autoWidth = TRUE,
-                                  scrollX = TRUE
-                                  ))
-  })
-
+  DT::datatable(
+    outputs()$df, 
+    extensions = "Buttons",
+    options = list(
+      buttons = c("copy", "csv", "excel", "pdf"),
+      dom = "Bfrtip",
+      scrollX = TRUE
+    )
+  )
+})
 
 ```
 
-### **Histogram of MPG**
-
-```{r}
- renderPlotly({
-    # render saved plot
-   outputs()$mpg_hist
-  })
-```
-
-### **Predicted model**
+### **Histogram of Immune Signature Score**
 
 ```{r}
 renderPlotly({
-    # render second plot
-  outputs()$lm_plot
-  })
+  outputs()$immune_hist
+})
+```
+
+### **Treatment Response Prediction Model**
+
+```{r}
+renderPlotly({
+  outputs()$response_plot
+})
 ```
 
