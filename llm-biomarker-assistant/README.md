@@ -281,39 +281,5 @@ The application includes several safeguards:
 - Contradictory evidence is reported explicitly.
 - Unsupported questions should return an insufficient-evidence response.
 
-These controls reduce unsupported claims but do not eliminate hallucinations. Human review remains necessary.
 
-## Limitations
 
-- The bundled corpus is small and synthetic.
-- Free hosted models may have lower rate limits or temporary outages.
-- OpenRouter may route different requests to different free models.
-- Structured-output quality can vary across models.
-- Retrieval quality depends on document coverage, chunking, metadata, and embedding quality.
-- Citation validation confirms that a source was retrieved, but it does not by itself prove that the source fully supports every claim.
-- The application is a research and portfolio demonstration, not a validated clinical or production system.
-- OpenRouter receives prompts sent to its service. Do not submit protected health information, confidential internal reports, or proprietary data without an approved data-governance arrangement.
-
-## Security and Data Privacy
-
-- Keep API keys in `.env`.
-- Ensure `.env`, `.chroma/`, and `.venv/` are excluded through `.gitignore`.
-- Never commit credentials, patient-level data, or confidential company information.
-- Use only public or synthetic data for a public GitHub demonstration.
-
-## Future Improvements
-
-- Hybrid dense and keyword retrieval
-- Biomedical cross-encoder reranking
-- Drug, target, biomarker, and disease entity normalization
-- Claim-level citation entailment checks
-- Trial-to-publication linking
-- Section-aware document chunking
-- Evidence deduplication and temporal tracking
-- Human-curated evidence-quality scoring
-- Expansion to ADC, ctDNA, immunotherapy, and multi-omics use cases
-- Deployment through Streamlit Community Cloud or another hosted platform
-
-## Disclaimer
-
-This software is provided for educational, research, and portfolio purposes only. It is not intended to diagnose disease, recommend treatment, replace expert scientific review, or support clinical decision-making.
