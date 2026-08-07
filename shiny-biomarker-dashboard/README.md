@@ -2,25 +2,18 @@
 
 ## Overview
 
-This application is  an interactive R Shiny dashboard for exploring biomarker expression and clinical annotation data. The dashboard is designed to visualize gene-expression patterns, compare sample groups, and support exploratory biomarker analysis.
+This application is  an interactive R Shiny dashboard for users to visualize immune signature scores, filter samples, review biomarker features, and estimate the predicted probability of treatment response.
 
 
 ## Dashboard Features
 
-- Select genes or biomarkers of interest
-- Visualize expression distributions across sample groups
-- Compare biomarker expression between clinical or biological groups
-- Generate summary tables and plots
-- Explore correlations between biomarkers and metadata variables
-- Produce reproducible interactive reports using R Markdown and Shiny
-
-## Example Use Cases
-
-- Tumor vs normal expression comparison
-- Responder vs nonresponder biomarker exploration
-- Immune-marker expression visualization
-- Candidate biomarker prioritization
-- Translational research data review
+- Interactive sidebar controls for data exploration
+- Histogram of immune signature scores
+- Sample filtering by immune signature score
+- Interactive table of biomarker and clinical annotation data
+- Logistic regression model for treatment response prediction
+- Visualization of predicted response probability
+- Exportable data table for downstream review
 
 ## Tools
 
