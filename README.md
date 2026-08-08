@@ -28,9 +28,6 @@ This repository highlights selected projects in computational biology, bioinform
 - [Single-cell RNA-seq Analysis of Colorectal Cancer](single-cell-rnaseq-colorectal-cancer)  
   Single-cell RNA-seq analysis of colorectal cancer tumor microenvironment.
 
-- [Single-cell RNA-seq Analysis of Head and Neck Cancer](single-cell-rnaseq-head-neck-cancer)  
-  Single-cell analysis of tumor and immune-cell populations.
-
 - [Spatial Immune-cell LASSO Cox Survival Analysis](spatial-immune-lasso-cox-survival-analysis)  
   LASSO Cox survival modeling using spatial immune-cell features.
 
