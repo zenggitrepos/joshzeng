@@ -2,9 +2,8 @@
 
 ## Overview
 
-This project demonstrates a machine-learning workflow for predicting protein subcellular localization. The analysis uses protein sequence-derived features to classify where proteins are likely localized within the cell.
 
-The goal is to show practical experience with biological feature engineering, supervised machine learning, model evaluation, and computational protein analysis.
+This project focuses on a machine-learning workflow for predicting protein subcellular localization using protein sequence-derived features. The analysis applies Support Vector Machine classifiers, including SVC and NuSVC, with comparison to Random Forest models, to classify the likely cellular compartments where proteins are localized.
 
 ## Workflow
 
@@ -24,20 +23,3 @@ The goal is to show practical experience with biological feature engineering, su
 - scikit-learn
 - matplotlib / seaborn
 
-## Skills Demonstrated
-
-- Supervised machine learning
-- Biological feature engineering
-- Protein sequence analysis
-- Classification model development
-- Model performance evaluation
-- Reproducible notebook-based analysis
-
-## Files
-
-- `protein-subcellular-localization-ml.ipynb`  
-  Main notebook for protein subcellular localization prediction using machine learning.
-
-## Relevance
-
-This project is relevant to computational biology, protein bioinformatics, machine learning, and biological data science. It demonstrates how machine-learning methods can be applied to protein-level biological prediction tasks.
