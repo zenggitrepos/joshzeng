@@ -4,7 +4,7 @@
 
 This project focuses on a machine-learning workflow for predicting cancer drug sensitivity from biological and molecular features.
 
-It  highlights drug-response modeling, feature preprocessing, supervised machine learning, model evaluation, and translational oncology data analysis.
+It highlights drug-response modeling, feature preprocessing, supervised machine learning, Elastic Net regularization, model evaluation, and translational oncology data analysis.
 
 ## Workflow
 
