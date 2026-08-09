@@ -1,0 +1,7 @@
+.venv
+__pycache__
+.pytest_cache
+.git
+outputs/*.png
+outputs/*.csv
+outputs/*.md

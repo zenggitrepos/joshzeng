@@ -1,0 +1,41 @@
+cancer_type,gene,cell_type,expression_fraction
+NSCLC,TROP2,Tumor epithelial,68
+NSCLC,TROP2,Immune,10
+NSCLC,TROP2,Stromal,8
+NSCLC,TROP2,Endothelial,6
+NSCLC,TROP2,Other,8
+NSCLC,CEACAM5,Tumor epithelial,71
+NSCLC,CEACAM5,Immune,7
+NSCLC,CEACAM5,Stromal,6
+NSCLC,CEACAM5,Endothelial,5
+NSCLC,CEACAM5,Other,11
+NSCLC,EGFR,Tumor epithelial,60
+NSCLC,EGFR,Immune,12
+NSCLC,EGFR,Stromal,11
+NSCLC,EGFR,Endothelial,7
+NSCLC,EGFR,Other,10
+NSCLC,MET,Tumor epithelial,56
+NSCLC,MET,Immune,14
+NSCLC,MET,Stromal,14
+NSCLC,MET,Endothelial,7
+NSCLC,MET,Other,9
+NSCLC,HER3,Tumor epithelial,54
+NSCLC,HER3,Immune,14
+NSCLC,HER3,Stromal,15
+NSCLC,HER3,Endothelial,7
+NSCLC,HER3,Other,10
+CRC,CEACAM5,Tumor epithelial,71
+CRC,CEACAM5,Immune,7
+CRC,CEACAM5,Stromal,6
+CRC,CEACAM5,Endothelial,5
+CRC,CEACAM5,Other,11
+CRC,TROP2,Tumor epithelial,68
+CRC,TROP2,Immune,10
+CRC,TROP2,Stromal,8
+CRC,TROP2,Endothelial,6
+CRC,TROP2,Other,8
+CRC,EGFR,Tumor epithelial,60
+CRC,EGFR,Immune,12
+CRC,EGFR,Stromal,11
+CRC,EGFR,Endothelial,7
+CRC,EGFR,Other,10

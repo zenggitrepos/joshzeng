@@ -1,0 +1,9 @@
+cancer_type,gene,tumor_bulk_tpm,normal_tissue_tpm,normal_critical_tissue_max_tpm
+NSCLC,TROP2,25,2.0,4.5
+NSCLC,CEACAM5,22,0.8,2.5
+NSCLC,EGFR,20,6.5,12.0
+NSCLC,MET,18,4.0,6.0
+NSCLC,HER3,15,3.0,8.0
+CRC,CEACAM5,30,0.5,2.0
+CRC,TROP2,15,2.5,5.0
+CRC,EGFR,19,5.0,10.0

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multi-agent-oncology-adc-target-discovery-web"
+version = "0.3.0"
+description = "Streamlit + OpenRouter multi-agent ADC target discovery demo"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.2",
+    "pydantic>=2.7",
+    "rich>=13.7",
+    "matplotlib>=3.8",
+    "openai>=1.40",
+    "streamlit>=1.37",
+]

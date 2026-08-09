@@ -1,0 +1,6 @@
+gene,signal_peptide_prob,transmembrane_prob,extracellular_domain_score,plm_surfaceability_score,internalization_score
+MET,0.96,0.98,0.88,0.84,0.82
+TROP2,0.99,0.99,0.92,0.91,0.88
+EGFR,0.98,0.99,0.9,0.89,0.86
+CEACAM5,0.97,0.82,0.95,0.9,0.8
+HER3,0.97,0.99,0.89,0.87,0.84

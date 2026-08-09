@@ -1,0 +1,12 @@
+cancer_type,gene,title,abstract,adc_relevance,biomarker_relevance
+NSCLC,TROP2,Toy paper 1 for TROP2,Synthetic abstract describing TROP2 evidence in NSCLC.,0.85,0.85
+NSCLC,TROP2,Toy paper 2 for TROP2,Synthetic abstract describing TROP2 evidence in NSCLC.,0.85,0.85
+NSCLC,CEACAM5,Toy paper 1 for CEACAM5,Synthetic abstract describing CEACAM5 evidence in NSCLC.,0.85,0.7
+NSCLC,EGFR,Toy paper 1 for EGFR,Synthetic abstract describing EGFR evidence in NSCLC.,0.3,0.95
+NSCLC,EGFR,Toy paper 2 for EGFR,Synthetic abstract describing EGFR evidence in NSCLC.,0.3,0.95
+NSCLC,MET,Toy paper 1 for MET,Synthetic abstract describing MET evidence in NSCLC.,0.6,0.78
+NSCLC,MET,Toy paper 2 for MET,Synthetic abstract describing MET evidence in NSCLC.,0.6,0.78
+NSCLC,HER3,Toy paper 1 for HER3,Synthetic abstract describing HER3 evidence in NSCLC.,0.8,0.75
+CRC,CEACAM5,Toy paper 1 for CEACAM5,Synthetic abstract describing CEACAM5 evidence in CRC.,0.95,0.88
+CRC,TROP2,Toy paper 1 for TROP2,Synthetic abstract describing TROP2 evidence in CRC.,0.55,0.55
+CRC,EGFR,Toy paper 1 for EGFR,Synthetic abstract describing EGFR evidence in CRC.,0.2,0.9

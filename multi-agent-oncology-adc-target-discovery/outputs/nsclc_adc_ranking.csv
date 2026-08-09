@@ -1,0 +1,6 @@
+rank,gene,adc_score,priority,literature,single_cell,tumor_normal_selectivity,crispr_dependency,protein_language_model
+1,TROP2,0.7615,High,0.7625,0.8849,0.7206,0.1215,0.9345
+2,CEACAM5,0.7224,High,0.6475,0.7674,0.8466,0.0,0.887
+3,MET,0.6872,Medium,0.638,0.664,0.5091,0.7525,0.892
+4,EGFR,0.6559,High,0.5775,0.7233,0.3363,0.7441,0.92
+5,HER3,0.6,Medium,0.645,0.605,0.3661,0.3345,0.908
