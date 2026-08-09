@@ -1,10 +1,27 @@
 # Joshua (Xuehuo) Zeng, PhD  
 
-## Computational Biology | Bioinformatics | Translational Data Science
+## Computational Biology | Bioinformatics | Translational Data Science | ML/DL | LLM/RAG | Agentic AI
 
 This repository highlights selected projects in computational biology, bioinformatics, machine learning, single-cell/spatial analysis, biomarker discovery, LLM/RAG applications, and AI-enabled drug discovery.
 
 ## Featured Projects
+
+### AI / LLM / Deep Learning / Protein Bioinformatics
+
+- [Multi-agent Oncology ADC Target Discovery](multi-agent-oncology-adc-target-discovery)<br>
+  A deployable LLM-supervised multi-agent platform for oncology ADC target discovery.
+
+- [LLM Biomarker Assistant](llm-biomarker-assistant)
+  RAG workflow for biomedical evidence retrieval and citation-grounded translational biomarker summaries.
+
+- [Deep Learning for Antibody–Antigen Binding Affinity Prediction](deep-learning-antibody-antigen-binding-affinity)
+  Deep-learning workflow using protein sequence-derived features and embeddings.
+
+- [Deep Learning for NK-cell Recruitment Prediction](deep-learning-nk-cell-recruitment)
+  Feedforward neural-network model for NK-cell recruitment prediction.
+
+- [Machine Learning for Protein Subcellular Localization](ml-protein-subcellular-localization)
+  SVC, NuSVC, and Random Forest models for protein localization prediction.
 
 ### Biomarker Discovery & Machine Learning
 
@@ -34,22 +51,6 @@ This repository highlights selected projects in computational biology, bioinform
 - [ATAC-seq Analysis Pipeline](ATAC_seq)  
   ATAC-seq QC, alignment, peak calling, FRiP calculation, IDR analysis, and visualization.
 
-### AI / LLM / Deep Learning / Protein Bioinformatics
-
-- [Multi-agent Oncology ADC Target Discovery](multi-agent-oncology-adc-target-discovery)<br>
-  A deployable LLM-supervised multi-agent platform for oncology ADC target discovery.
-
-- [LLM Biomarker Assistant](llm-biomarker-assistant)  
-  RAG workflow for biomedical evidence retrieval and citation-grounded translational biomarker summaries.
-
-- [Deep Learning for Antibody–Antigen Binding Affinity Prediction](deep-learning-antibody-antigen-binding-affinity)  
-  Deep-learning workflow using protein sequence-derived features and embeddings.
-
-- [Deep Learning for NK-cell Recruitment Prediction](deep-learning-nk-cell-recruitment)  
-  Feedforward neural-network model for NK-cell recruitment prediction.
-
-- [Machine Learning for Protein Subcellular Localization](ml-protein-subcellular-localization)  
-  SVC, NuSVC, and Random Forest models for protein localization prediction.
 
 ### Tools & Dashboards
 
