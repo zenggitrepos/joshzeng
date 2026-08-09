@@ -37,6 +37,7 @@ This repository highlights selected projects in computational biology, bioinform
 ### AI / LLM / Deep Learning / Protein Bioinformatics
 
 - [Multi-agent Oncology ADC Target Discovery](multi-agent-oncology-adc-target-discovery)
+  A deployable LLM-supervised multi-agent platform for oncology ADC target discovery.
 
 - [LLM Biomarker Assistant](llm-biomarker-assistant)  
   RAG workflow for biomedical evidence retrieval and citation-grounded translational biomarker summaries.
