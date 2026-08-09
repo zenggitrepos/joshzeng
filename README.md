@@ -11,16 +11,16 @@ This repository highlights selected projects in computational biology, bioinform
 - [Multi-agent Oncology ADC Target Discovery](multi-agent-oncology-adc-target-discovery)<br>
   OpenRouter/LLM tool-calling platform integrating literature, single-cell expression, tumor-normal selectivity, CRISPR dependency, and protein/PLM features for ADC target prioritization
 
-- [LLM Biomarker Assistant](llm-biomarker-assistant)
+- [LLM Biomarker Assistant](llm-biomarker-assistant)<br>
   RAG workflow for biomedical evidence retrieval and citation-grounded translational biomarker summaries.
 
-- [Deep Learning for Antibody–Antigen Binding Affinity Prediction](deep-learning-antibody-antigen-binding-affinity)
+- [Deep Learning for Antibody–Antigen Binding Affinity Prediction](deep-learning-antibody-antigen-binding-affinity)<br>
   Deep-learning workflow using protein sequence-derived features and embeddings.
 
-- [Deep Learning for NK-cell Recruitment Prediction](deep-learning-nk-cell-recruitment)
+- [Deep Learning for NK-cell Recruitment Prediction](deep-learning-nk-cell-recruitment)<br>
   Feedforward neural-network model for NK-cell recruitment prediction.
 
-- [Machine Learning for Protein Subcellular Localization](ml-protein-subcellular-localization)
+- [Machine Learning for Protein Subcellular Localization](ml-protein-subcellular-localization)<br>
   SVC, NuSVC, and Random Forest models for protein localization prediction.
 
 ### Biomarker Discovery & Machine Learning
