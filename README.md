@@ -1,6 +1,6 @@
 # Joshua (Xuehuo) Zeng, PhD  
 
-## Computational Biology | Bioinformatics | Translational Data Science | ML/DL | LLM/RAG | Agentic AI
+## Computational Biology | Translational Data Science | AI/ML for Drug Discovery | LLM/RAG | Agentic AI
 
 This repository highlights selected projects in computational biology, bioinformatics, machine learning, single-cell/spatial analysis, biomarker discovery, LLM/RAG applications, and AI-enabled drug discovery.
 
