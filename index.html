@@ -1,26 +1,358 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Joshua Zeng, PhD</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joshua Zeng, PhD | Computational Biology Portfolio</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #1f2933;
+      background: #f7f9fb;
+    }
+
+    header {
+      background: #0f172a;
+      color: white;
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.6rem;
+    }
+
+    header h2 {
+      margin-top: 12px;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: #cbd5e1;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 14px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      margin: 0 12px;
+      color: #0f172a;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    section {
+      background: white;
+      margin-bottom: 28px;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+    }
+
+    h2 {
+      color: #0f172a;
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .project {
+      border-top: 1px solid #e5e7eb;
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .project:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #075985;
+      padding: 4px 9px;
+      margin: 3px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Joshua Zeng, PhD</h1>
-  <h2>Computational Biology | Bioinformatics | Translational Data Science</h2>
 
-  <p>
-    Selected projects in bioinformatics, machine learning, single-cell/spatial analysis,
-    biomarker discovery, LLM/RAG applications, and AI-enabled drug discovery.
-  </p>
+  <header>
+    <h1>Joshua Zeng, PhD</h1>
+    <h2>Computational Biology | Bioinformatics | Translational Data Science</h2>
+    <p>
+      Selected projects in oncology, immunology, biomarker discovery, single-cell/spatial genomics,
+      machine learning, LLM/RAG applications, and AI-enabled drug discovery.
+    </p>
+  </header>
 
-  <h3>Portfolio Links</h3>
-  <ul>
-    <li><a href="https://github.com/zenggitrepos/joshzeng">GitHub Portfolio</a></li>
-    <li><a href="https://github.com/zenggitrepos/joshzeng/tree/main/llm-biomarker-assistant">LLM Biomarker Assistant</a></li>
-    <li><a href="https://github.com/zenggitrepos/joshzeng/tree/main/single-cell-rnaseq-melanoma">Single-cell RNA-seq Melanoma</a></li>
-    <li><a href="https://github.com/zenggitrepos/joshzeng/tree/main/single-cell-rnaseq-colorectal-cancer">Single-cell RNA-seq Colorectal Cancer</a></li>
-    <li><a href="https://github.com/zenggitrepos/joshzeng/tree/main/spatial-immune-lasso-cox-survival-analysis">Spatial Immune LASSO Cox Survival Analysis</a></li>
-    <li><a href="https://github.com/zenggitrepos/joshzeng/tree/main/shiny-biomarker-dashboard">Shiny Biomarker Dashboard</a></li>
-  </ul>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#ai-llm">AI / LLM</a>
+    <a href="#biomarker-ml">Biomarker ML</a>
+    <a href="#single-cell">Single-cell / Spatial</a>
+    <a href="#tools">Tools</a>
+    <a href="#skills">Skills</a>
+  </nav>
+
+  <main>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I am a computational biologist and bioinformatics scientist with experience in oncology,
+        immunology, translational biomarker discovery, multi-omics analysis, single-cell and spatial
+        genomics, machine learning, and AI-enabled biological discovery.
+      </p>
+      <p>
+        My portfolio highlights reproducible computational workflows that connect biological data,
+        statistical modeling, machine learning, and translational research questions.
+      </p>
+    </section>
+
+    <section id="ai-llm">
+      <h2>AI / LLM / Deep Learning / Protein Bioinformatics</h2>
+
+      <div class="project" id="llm-biomarker-assistant">
+        <h3>LLM Biomarker Assistant</h3>
+        <p>
+          A retrieval-augmented generation workflow for biomedical evidence retrieval and
+          citation-grounded translational biomarker summaries.
+        </p>
+        <p>
+          The project demonstrates literature retrieval, evidence-table generation, local embeddings,
+          vector search, structured LLM output, citation guardrails, contradictory-evidence reporting,
+          and Streamlit-based user interaction.
+        </p>
+        <span class="tag">LLM</span>
+        <span class="tag">RAG</span>
+        <span class="tag">Biomarker Discovery</span>
+        <span class="tag">PubMed</span>
+        <span class="tag">ClinicalTrials.gov</span>
+      </div>
+
+      <div class="project" id="deep-learning-antibody">
+        <h3>Deep Learning for Antibody–Antigen Binding Affinity Prediction</h3>
+        <p>
+          A protein bioinformatics and deep-learning workflow for predicting antibody–antigen
+          binding affinity using sequence-derived features and protein language model embeddings.
+        </p>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Protein Bioinformatics</span>
+        <span class="tag">Antibody Discovery</span>
+      </div>
+
+      <div class="project" id="nk-cell-recruitment">
+        <h3>Deep Learning for NK-cell Recruitment Prediction</h3>
+        <p>
+          A feedforward neural-network workflow for modeling NK-cell recruitment from
+          microbial product-associated features.
+        </p>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Immunology</span>
+        <span class="tag">Predictive Modeling</span>
+      </div>
+
+      <div class="project" id="protein-localization">
+        <h3>Machine Learning for Protein Subcellular Localization</h3>
+        <p>
+          A supervised machine-learning workflow using SVC, NuSVC, and Random Forest models
+          to predict protein subcellular localization from sequence-derived features.
+        </p>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">SVC</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">Protein Localization</span>
+      </div>
+    </section>
+
+    <section id="biomarker-ml">
+      <h2>Biomarker Discovery & Machine Learning</h2>
+
+      <div class="project" id="lasso-drug-sensitivity">
+        <h3>LASSO Biomarker Modeling for Drug Sensitivity</h3>
+        <p>
+          A regularized modeling workflow for identifying predictive biomarkers associated with
+          drug sensitivity in cancer cell-line data.
+        </p>
+        <span class="tag">LASSO</span>
+        <span class="tag">Drug Sensitivity</span>
+        <span class="tag">Cancer Pharmacogenomics</span>
+      </div>
+
+      <div class="project" id="drug-sensitivity-prediction">
+        <h3>Machine Learning for Drug Sensitivity Prediction</h3>
+        <p>
+          A supervised machine-learning workflow for predicting cancer drug sensitivity from
+          biological and molecular features.
+        </p>
+        <span class="tag">Elastic Net</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Precision Oncology</span>
+      </div>
+
+      <div class="project" id="immunotherapy-response">
+        <h3>Machine Learning for Immunotherapy Response Prediction</h3>
+        <p>
+          A QLattice and LASSO-based workflow for immunotherapy response prediction,
+          patient stratification, and immuno-oncology biomarker discovery.
+        </p>
+        <span class="tag">Immunotherapy</span>
+        <span class="tag">QLattice</span>
+        <span class="tag">LASSO</span>
+        <span class="tag">Patient Stratification</span>
+      </div>
+
+      <div class="project" id="feature-selection">
+        <h3>Machine Learning Feature Selection</h3>
+        <p>
+          Feature-selection workflows for high-dimensional biological data to improve
+          interpretability and support biomarker modeling.
+        </p>
+        <span class="tag">Feature Selection</span>
+        <span class="tag">High-dimensional Data</span>
+        <span class="tag">Bioinformatics</span>
+      </div>
+    </section>
+
+    <section id="single-cell">
+      <h2>Single-cell, Spatial & Epigenomics</h2>
+
+      <div class="project" id="melanoma-scrna">
+        <h3>Single-cell RNA-seq Analysis of Melanoma</h3>
+        <p>
+          A Seurat-based single-cell RNA-seq workflow for melanoma tumor microenvironment analysis,
+          including quality control, normalization, clustering, annotation, and marker-gene exploration.
+        </p>
+        <span class="tag">Single-cell RNA-seq</span>
+        <span class="tag">Melanoma</span>
+        <span class="tag">Seurat</span>
+      </div>
+
+      <div class="project" id="crc-scrna">
+        <h3>Single-cell RNA-seq Analysis of Colorectal Cancer</h3>
+        <p>
+          A single-cell RNA-seq analysis workflow for colorectal cancer tumor samples and
+          tumor microenvironment characterization.
+        </p>
+        <span class="tag">Single-cell RNA-seq</span>
+        <span class="tag">Colorectal Cancer</span>
+        <span class="tag">Tumor Microenvironment</span>
+      </div>
+
+      <div class="project" id="head-neck-scrna">
+        <h3>Single-cell RNA-seq Analysis of Head and Neck Cancer</h3>
+        <p>
+          Single-cell analysis of tumor and immune-cell populations in head and neck cancer.
+        </p>
+        <span class="tag">Single-cell RNA-seq</span>
+        <span class="tag">Head and Neck Cancer</span>
+        <span class="tag">Immune Cells</span>
+      </div>
+
+      <div class="project" id="spatial-survival">
+        <h3>Spatial Immune-cell LASSO Cox Survival Analysis</h3>
+        <p>
+          A survival-analysis workflow using spatial immune-cell features and LASSO Cox regression
+          to identify prognostic immune microenvironment parameters.
+        </p>
+        <span class="tag">Spatial Biology</span>
+        <span class="tag">LASSO Cox</span>
+        <span class="tag">Survival Analysis</span>
+      </div>
+
+      <div class="project" id="atac-seq">
+        <h3>ATAC-seq Analysis Pipeline</h3>
+        <p>
+          A reproducible ATAC-seq workflow including quality control, Bowtie2 alignment,
+          MACS2 peak calling, FRiP calculation, IDR analysis, and IGV visualization preparation.
+        </p>
+        <span class="tag">ATAC-seq</span>
+        <span class="tag">Epigenomics</span>
+        <span class="tag">Regulatory Genomics</span>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>Tools & Dashboards</h2>
+
+      <div class="project" id="shiny-dashboard">
+        <h3>Shiny Biomarker Dashboard</h3>
+        <p>
+          An interactive R Shiny/flexdashboard application for biomarker visualization,
+          immune-feature exploration, and treatment-response probability modeling.
+        </p>
+        <span class="tag">R Shiny</span>
+        <span class="tag">Dashboard</span>
+        <span class="tag">Biomarker Visualization</span>
+      </div>
+
+      <div class="project" id="h5ad-to-seurat">
+        <h3>Convert h5ad to Seurat</h3>
+        <p>
+          A workflow for converting AnnData `.h5ad` single-cell objects into Seurat-compatible
+          format for downstream R-based analysis.
+        </p>
+        <span class="tag">h5ad</span>
+        <span class="tag">Seurat</span>
+        <span class="tag">Single-cell Data Conversion</span>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills Highlighted</h2>
+      <p>
+        R, Python, SQL, shell scripting, Jupyter Notebook, Shiny, Seurat, ATAC-seq,
+        single-cell RNA-seq, spatial biology, LASSO, Elastic Net, Cox modeling,
+        QLattice, SVC, Random Forest, deep learning, LLMs, RAG, protein bioinformatics,
+        biomarker discovery, oncology, immunology, and translational research.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Joshua Zeng, PhD. Portfolio site powered by a custom domain.
+  </footer>
+
 </body>
 </html>
