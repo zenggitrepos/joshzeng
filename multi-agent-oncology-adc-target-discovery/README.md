@@ -12,6 +12,10 @@ The conversational orchestrator uses **OpenRouter's hosted Free Models Router** 
 - target ranking
 - target-level visualizations
 
+## Goal
+
+The goal of this platform is to use **LLM-supervised multi-agent AI to integrate heterogeneous oncology evidence to prioritize ADC targets and biomarkers**. The platform coordinates specialized agents that evaluate literature support, single-cell expression, tumor-versus-normal selectivity, CRISPR dependency, and protein/PLM-derived features, then combines the evidence into an interpretable target ranking with supporting visualizations. It is designed as a reproducible framework that can be connected to larger public or proprietary datasets for translational target discovery.
+
 
 ## User experience
 
