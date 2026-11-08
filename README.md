@@ -51,6 +51,9 @@ This repository highlights selected projects in computational biology, bioinform
 - [ATAC-seq Analysis Pipeline](ATAC_seq)  
   ATAC-seq QC, alignment, peak calling, FRiP calculation, IDR analysis, and visualization.
 
+### Perturb-seq Analysis
+- [A549 Perturb-seq: CRISPR Perturbation Response Profiling](A549-PerturbSeq-CRISPR-Analysis)  
+  Seurat-based single-cell CRISPR perturbation analysis of A549 lung cancer cells, including quality control, differential expression, on-target transcript responses, GO pathway enrichment, perturbation signature similarity, and cross-channel concordance.
 
 ### Tools & Dashboards
 
@@ -59,4 +62,5 @@ This repository highlights selected projects in computational biology, bioinform
 
 - [Convert h5ad to Seurat](convert-h5ad-to-seurat)  
   Workflow for converting `.h5ad` single-cell objects to Seurat format.
+
 
