@@ -55,7 +55,7 @@ This repository highlights selected projects in computational biology, bioinform
 - [A549 Perturb-seq: CRISPR Perturbation Response Profiling](A549-PerturbSeq-CRISPR-Analysis)  
   Seurat-based single-cell CRISPR perturbation analysis of A549 lung cancer cells, including quality control, differential expression, on-target transcript responses, GO pathway enrichment, perturbation signature similarity, and cross-channel concordance.
 
-- [Combinatorial CRISPRa Perturb-seq Genetic Interactions ](Combinatorial-CRISPRa-perturbSeq-genetic-interactions)
+- [Combinatorial CRISPRa Perturb-seq Genetic Interactions ](Combinatorial-CRISPRa-perturbSeq-genetic-interactions)  
   Analyzes combinatorial CRISPRa Perturb-seq data in K562 cells to identify nonadditive genetic interactions, transcriptional regulatory programs, and candidate mechanisms of cellular differentiation using single-cell RNA-seq.
 ### Tools & Dashboards
 
